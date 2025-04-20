@@ -1,7 +1,7 @@
+/* (C)2025 */
 package com.order_service.project.domain.models;
 
 import com.order_service.project.domain.OrderItem;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -20,7 +20,6 @@ public class OrderCancelledEvent {
     private String deliveryAddressCountry;
     private LocalDateTime createdAt;
     private String reason;
-
 
     public String getReason() {
         return reason;
@@ -134,7 +133,21 @@ public class OrderCancelledEvent {
         this.createdAt = createdAt;
     }
 
-    public OrderCancelledEvent(String eventId, String orderNumber, Set<OrderItem> items, String customerName, String customerEmail, String customerPhone, String deliveryAddressLine1, String deliveryAddressLine2, String deliveryAddressCity, String deliveryAddressState, String deliveryAddressZipCode, String deliveryAddressCountry, String reason, LocalDateTime createdAt) {
+    public OrderCancelledEvent(
+            String eventId,
+            String orderNumber,
+            Set<OrderItem> items,
+            String customerName,
+            String customerEmail,
+            String customerPhone,
+            String deliveryAddressLine1,
+            String deliveryAddressLine2,
+            String deliveryAddressCity,
+            String deliveryAddressState,
+            String deliveryAddressZipCode,
+            String deliveryAddressCountry,
+            String reason,
+            LocalDateTime createdAt) {
         this.eventId = eventId;
         this.orderNumber = orderNumber;
         this.items = items;

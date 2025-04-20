@@ -1,7 +1,7 @@
+/* (C)2025 */
 package com.order_service.project.domain;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Table(name = "order_items")
@@ -12,7 +12,6 @@ class OrderItemEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_item_id_generator")
     @SequenceGenerator(name = "order_item_id_generator", sequenceName = "order_item_id_seq")
     private Long id;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", nullable = false)
@@ -27,10 +26,8 @@ class OrderItemEntity {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
-
 
     public Long getId() {
         return id;
@@ -79,5 +76,4 @@ class OrderItemEntity {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-
 }

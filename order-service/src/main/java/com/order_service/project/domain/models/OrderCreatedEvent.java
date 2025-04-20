@@ -1,9 +1,7 @@
+/* (C)2025 */
 package com.order_service.project.domain.models;
 
 import com.order_service.project.domain.OrderItem;
-import jakarta.persistence.Column;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -126,7 +124,20 @@ public class OrderCreatedEvent {
         this.createdAt = createdAt;
     }
 
-    public OrderCreatedEvent(String eventId, String orderNumber, Set<OrderItem> items, String customerName, String customerEmail, String customerPhone, String deliveryAddressLine1, String deliveryAddressLine2, String deliveryAddressCity, String deliveryAddressState, String deliveryAddressZipCode, String deliveryAddressCountry, LocalDateTime createdAt) {
+    public OrderCreatedEvent(
+            String eventId,
+            String orderNumber,
+            Set<OrderItem> items,
+            String customerName,
+            String customerEmail,
+            String customerPhone,
+            String deliveryAddressLine1,
+            String deliveryAddressLine2,
+            String deliveryAddressCity,
+            String deliveryAddressState,
+            String deliveryAddressZipCode,
+            String deliveryAddressCountry,
+            LocalDateTime createdAt) {
         this.eventId = eventId;
         this.orderNumber = orderNumber;
         this.items = items;

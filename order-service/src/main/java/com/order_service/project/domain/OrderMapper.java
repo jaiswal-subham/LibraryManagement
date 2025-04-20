@@ -1,23 +1,43 @@
+/* (C)2025 */
 package com.order_service.project.domain;
 
 import com.order_service.project.domain.models.CreateOrderRequest;
 import com.order_service.project.domain.models.OrderStatus;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class OrderMapper {
     public OrderResponse orderEntityToOrderResponse(OrderEntity oe) {
-        List<OrderItem> oi = oe.getItems().stream().map(x -> new OrderItem(x.getCode(), x.getName(), x.getPrice(), x.getQuantity())).collect(Collectors.toList());
-        return new OrderResponse(oe.getUserName(), oi, oe.getCustomerName(), oe.getCustomerEmail(), oe.getCustomerPhone(), oe.getDeliveryAddressLine1(), oe.getDeliveryAddressLine2(), oe.getDeliveryAddressCity(), oe.getDeliveryAddressState(), oe.getDeliveryAddressZipCode(), oe.getStatus(), oe.getComments());
+        List<OrderItem> oi =
+                oe.getItems().stream()
+                        .map(
+                                x ->
+                                        new OrderItem(
+                                                x.getCode(),
+                                                x.getName(),
+                                                x.getPrice(),
+                                                x.getQuantity()))
+                        .collect(Collectors.toList());
+        return new OrderResponse(
+                oe.getUserName(),
+                oi,
+                oe.getCustomerName(),
+                oe.getCustomerEmail(),
+                oe.getCustomerPhone(),
+                oe.getDeliveryAddressLine1(),
+                oe.getDeliveryAddressLine2(),
+                oe.getDeliveryAddressCity(),
+                oe.getDeliveryAddressState(),
+                oe.getDeliveryAddressZipCode(),
+                oe.getStatus(),
+                oe.getComments());
     }
-
 
     public OrderEntity orderRequestToOrderResponse(CreateOrderRequest cor, String orderNumber) {
         OrderEntity orderEntity = new OrderEntity();
-        Set<OrderItemEntity> orderItemEntityList= new LinkedHashSet<>();
-        for(OrderItem orderItem :cor.getItems()){
+        Set<OrderItemEntity> orderItemEntityList = new LinkedHashSet<>();
+        for (OrderItem orderItem : cor.getItems()) {
             OrderItemEntity orderItemEntity = new OrderItemEntity();
             orderItemEntity.setCode(orderItem.code());
             orderItemEntity.setName(orderItem.name());

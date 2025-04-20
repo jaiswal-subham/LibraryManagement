@@ -1,14 +1,13 @@
+/* (C)2025 */
 package com.order_service.project.domain;
 
-import com.order_service.project.domain.models.*;
-import com.order_service.project.publisher.OrderEventPublisher;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.order_service.project.domain.models.*;
+import com.order_service.project.publisher.OrderEventPublisher;
 import java.util.List;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 @Service
 public class OrderEventService {
@@ -16,7 +15,10 @@ public class OrderEventService {
     ObjectMapper objectMapper;
     OrderEventPublisher orderEventPublisher;
 
-    public OrderEventService(OrderEventRepository orderEventRepository, ObjectMapper objectMapper, OrderEventPublisher orderEventPublisher) {
+    public OrderEventService(
+            OrderEventRepository orderEventRepository,
+            ObjectMapper objectMapper,
+            OrderEventPublisher orderEventPublisher) {
         this.orderEventRepository = orderEventRepository;
         this.objectMapper = objectMapper;
         this.orderEventPublisher = orderEventPublisher;
@@ -42,7 +44,6 @@ public class OrderEventService {
         this.orderEventRepository.save(orderEvent);
     }
 
-
     void save(OrderCancelledEvent event) {
         OrderEventEntity orderEvent = new OrderEventEntity();
         orderEvent.setEventId(event.getEventId());
@@ -63,44 +64,45 @@ public class OrderEventService {
         this.orderEventRepository.save(orderEvent);
     }
 
-
     public void publishOrderEvents() {
-        List<OrderEventEntity> orderEvents = this.orderEventRepository.findAll(Sort.by("CreatedAt"));
+        List<OrderEventEntity> orderEvents =
+                this.orderEventRepository.findAll(Sort.by("CreatedAt"));
         for (OrderEventEntity oe : orderEvents) {
             // publish the message into rabbit MQ // Rabbit mq should be idempotent
             this.publishEvent(oe);
             this.orderEventRepository.deleteById(oe.getId());
         }
-
     }
 
     private void publishEvent(OrderEventEntity event) {
         OrderEventType eventType = event.getEventType();
         switch (eventType) {
             case ORDER_CREATED:
-                OrderCreatedEvent orderCreatedEvent = fromJsonPayload(event.getPayload(), OrderCreatedEvent.class);
+                OrderCreatedEvent orderCreatedEvent =
+                        fromJsonPayload(event.getPayload(), OrderCreatedEvent.class);
                 orderEventPublisher.publishOrderCreatedEvent(orderCreatedEvent);
                 break;
 
             case ORDER_DELIVERED:
-                OrderDeliveredEvent orderDeliveredEvent = fromJsonPayload(event.getPayload(), OrderDeliveredEvent.class);
+                OrderDeliveredEvent orderDeliveredEvent =
+                        fromJsonPayload(event.getPayload(), OrderDeliveredEvent.class);
                 orderEventPublisher.publishOrderDeliveredEvent(orderDeliveredEvent);
                 break;
 
             case ORDER_CANCELLED:
-                OrderCancelledEvent orderCancelledEvent = fromJsonPayload(event.getPayload(), OrderCancelledEvent.class);
+                OrderCancelledEvent orderCancelledEvent =
+                        fromJsonPayload(event.getPayload(), OrderCancelledEvent.class);
                 orderEventPublisher.publishOrderCancelledEvent(orderCancelledEvent);
                 break;
 
             case ORDER_PROCESSING_FAILED:
-                OrderErrorEvent orderErrorEvent = fromJsonPayload(event.getPayload(), OrderErrorEvent.class);
+                OrderErrorEvent orderErrorEvent =
+                        fromJsonPayload(event.getPayload(), OrderErrorEvent.class);
                 orderEventPublisher.publishOrderErrorEvent(orderErrorEvent);
                 break;
             default:
-
         }
     }
-
 
     private String toJsonPayload(Object object) {
         try {

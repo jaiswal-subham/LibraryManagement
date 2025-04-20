@@ -1,8 +1,9 @@
+/* (C)2025 */
 package com.order_service.project.domain.models;
 
 import com.order_service.project.domain.OrderItem;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
 
 public class CreateOrderRequest {
@@ -86,7 +87,6 @@ public class CreateOrderRequest {
         this.zipCode = zipCode;
     }
 
-
     private Set<OrderItem> items;
 
     @NotBlank(message = "Customer Name is required")
@@ -116,7 +116,4 @@ public class CreateOrderRequest {
 
     @NotBlank(message = "Country is required")
     String country;
-
-
-
 }

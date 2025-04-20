@@ -1,8 +1,7 @@
+/* (C)2025 */
 package com.order_service.project.jobs;
 
-
 import com.order_service.project.domain.OrderEventService;
-
 import java.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

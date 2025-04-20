@@ -1,3 +1,4 @@
+/* (C)2025 */
 package com.order_service.project;
 
 import org.junit.jupiter.api.Test;
@@ -8,8 +9,6 @@ import org.springframework.context.annotation.Import;
 @SpringBootTest
 class ProjectApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {}
 }

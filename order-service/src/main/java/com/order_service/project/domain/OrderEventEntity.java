@@ -1,15 +1,13 @@
+/* (C)2025 */
 package com.order_service.project.domain;
 
 import com.order_service.project.domain.models.OrderEventType;
 import jakarta.persistence.*;
-
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_events")
 public class OrderEventEntity {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_event_id_seq_generator")
@@ -42,7 +40,6 @@ public class OrderEventEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getOrderNumber() {
         return orderNumber;

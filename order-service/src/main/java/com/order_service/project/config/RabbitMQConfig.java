@@ -1,3 +1,4 @@
+/* (C)2025 */
 package com.order_service.project.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +22,6 @@ class RabbitMQConfig {
         this.properties = properties;
     }
 
-
     @Bean
     DirectExchange exchange() {
         return new DirectExchange(properties.orderEventsExchange());
@@ -34,7 +34,9 @@ class RabbitMQConfig {
 
     @Bean
     Binding newOrdersQueueBinding() {
-        return BindingBuilder.bind(newOrdersQueue()).to(exchange()).with(properties.newOrdersQueue());
+        return BindingBuilder.bind(newOrdersQueue())
+                .to(exchange())
+                .with(properties.newOrdersQueue());
     }
 
     @Bean
@@ -44,7 +46,9 @@ class RabbitMQConfig {
 
     @Bean
     Binding deliveredOrdersQueueBinding() {
-        return BindingBuilder.bind(deliveredOrdersQueue()).to(exchange()).with(properties.deliveredOrdersQueue());
+        return BindingBuilder.bind(deliveredOrdersQueue())
+                .to(exchange())
+                .with(properties.deliveredOrdersQueue());
     }
 
     @Bean
@@ -54,7 +58,9 @@ class RabbitMQConfig {
 
     @Bean
     Binding cancelledOrdersQueueBinding() {
-        return BindingBuilder.bind(cancelledOrdersQueue()).to(exchange()).with(properties.cancelledOrdersQueue());
+        return BindingBuilder.bind(cancelledOrdersQueue())
+                .to(exchange())
+                .with(properties.cancelledOrdersQueue());
     }
 
     @Bean
@@ -64,11 +70,14 @@ class RabbitMQConfig {
 
     @Bean
     Binding errorOrdersQueueBinding() {
-        return BindingBuilder.bind(errorOrdersQueue()).to(exchange()).with(properties.errorOrdersQueue());
+        return BindingBuilder.bind(errorOrdersQueue())
+                .to(exchange())
+                .with(properties.errorOrdersQueue());
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, ObjectMapper objectMapper) {
+    public RabbitTemplate rabbitTemplate(
+            ConnectionFactory connectionFactory, ObjectMapper objectMapper) {
         final var rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jacksonConverter(objectMapper));
         return rabbitTemplate;

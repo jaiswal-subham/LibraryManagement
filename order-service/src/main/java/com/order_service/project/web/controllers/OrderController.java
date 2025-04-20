@@ -1,12 +1,10 @@
+/* (C)2025 */
 package com.order_service.project.web.controllers;
 
-import com.order_service.project.domain.OrderEntity;
 import com.order_service.project.domain.OrderNotFoundException;
-
 import com.order_service.project.domain.OrderService;
 import com.order_service.project.domain.models.CreateOrderRequest;
 import com.order_service.project.domain.models.CreateOrderResponse;
-
 import com.order_service.project.domain.models.OrderSummary;
 import com.order_service.project.web.exception.InvalidOrderException;
 import jakarta.validation.Valid;
@@ -23,19 +21,19 @@ class OrderController {
         this.orderService = orderService;
     }
 
-
     @GetMapping
     public OrderSummary getOrdersByUser() {
         String userName = "user";
-        return this.orderService.getOrdersByUser(userName).orElseThrow(() -> new OrderNotFoundException("Order For this user not found"));
+        return this.orderService
+                .getOrdersByUser(userName)
+                .orElseThrow(() -> new OrderNotFoundException("Order For this user not found"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    CreateOrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request) throws InvalidOrderException {
+    CreateOrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request)
+            throws InvalidOrderException {
         String userName = "user";
         return orderService.createOrder(userName, request);
     }
-
-
 }

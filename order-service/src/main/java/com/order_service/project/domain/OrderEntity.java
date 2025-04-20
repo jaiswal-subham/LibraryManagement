@@ -1,10 +1,9 @@
+/* (C)2025 */
 package com.order_service.project.domain;
 
-import com.order_service.project.domain.models.OrderEventType;
 import com.order_service.project.domain.models.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class OrderEntity {
     @SequenceGenerator(name = "order_id_generator", sequenceName = "order_id_seq")
     private Long id;
 
-    @Column(nullable = false,name="order_number")
+    @Column(nullable = false, name = "order_number")
     private String orderNumber;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -27,11 +26,9 @@ public class OrderEntity {
     @NotEmpty(message = "User Name is required")
     private String userName;
 
-
     @Column(name = "customer_name", nullable = false)
     @NotEmpty(message = "Customer Name is required")
     private String customerName;
-
 
     @Column(name = "customer_email", nullable = false)
     private String customerEmail;
@@ -48,7 +45,6 @@ public class OrderEntity {
     @Column(name = "delivery_address_city", nullable = false)
     private String deliveryAddressCity;
 
-
     @Column(name = "delivery_address_state", nullable = false)
     private String deliveryAddressState;
 
@@ -61,7 +57,6 @@ public class OrderEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private OrderStatus status;
-
 
     @Column(name = "comments", nullable = false)
     private String comments;
@@ -79,7 +74,6 @@ public class OrderEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getOrderNumber() {
         return orderNumber;
@@ -209,10 +203,26 @@ public class OrderEntity {
         this.updatedAt = updatedAt;
     }
 
-    public OrderEntity() {
-    }
+    public OrderEntity() {}
 
-    public OrderEntity(Long id, String orderNumber, Set<OrderItemEntity> items, String userName, String customerName, String customerEmail, String customerPhone, String deliveryAddressLine1, String deliveryAddressLine2, String deliveryAddressCity, String deliveryAddressState, String deliveryAddressZipCode, String deliveryAddressCountry, OrderStatus status, String comments, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public OrderEntity(
+            Long id,
+            String orderNumber,
+            Set<OrderItemEntity> items,
+            String userName,
+            String customerName,
+            String customerEmail,
+            String customerPhone,
+            String deliveryAddressLine1,
+            String deliveryAddressLine2,
+            String deliveryAddressCity,
+            String deliveryAddressState,
+            String deliveryAddressZipCode,
+            String deliveryAddressCountry,
+            OrderStatus status,
+            String comments,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.items = items;

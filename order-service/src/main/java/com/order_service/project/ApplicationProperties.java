@@ -1,3 +1,4 @@
+/* (C)2025 */
 package com.order_service.project;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,7 +10,4 @@ public record ApplicationProperties(
         String newOrdersQueue,
         String deliveredOrdersQueue,
         String cancelledOrdersQueue,
-        String errorOrdersQueue
-
-) {
-}
+        String errorOrdersQueue) {}

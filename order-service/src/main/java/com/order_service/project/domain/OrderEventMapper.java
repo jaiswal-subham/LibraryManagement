@@ -1,11 +1,10 @@
+/* (C)2025 */
 package com.order_service.project.domain;
-
 
 import com.order_service.project.domain.models.OrderCancelledEvent;
 import com.order_service.project.domain.models.OrderCreatedEvent;
 import com.order_service.project.domain.models.OrderDeliveredEvent;
 import com.order_service.project.domain.models.OrderErrorEvent;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -29,6 +28,7 @@ class OrderEventMapper {
                 order.getDeliveryAddressCountry(),
                 LocalDateTime.now());
     }
+
     static OrderDeliveredEvent buildOrderDeliveredEvent(OrderEntity order) {
         return new OrderDeliveredEvent(
                 UUID.randomUUID().toString(),
@@ -85,7 +85,13 @@ class OrderEventMapper {
 
     private static Set<OrderItem> getOrderItems(OrderEntity order) {
         return order.getItems().stream()
-                .map(item -> new OrderItem(item.getCode(), item.getName(), item.getPrice(), item.getQuantity()))
+                .map(
+                        item ->
+                                new OrderItem(
+                                        item.getCode(),
+                                        item.getName(),
+                                        item.getPrice(),
+                                        item.getQuantity()))
                 .collect(Collectors.toSet());
     }
 }

@@ -1,7 +1,7 @@
+/* (C)2025 */
 package com.order_service.project.domain.models;
 
 import com.order_service.project.domain.OrderItem;
-
 import java.util.Set;
 
 public class OrderDTO {
